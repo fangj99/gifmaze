@@ -2,11 +2,11 @@
 
 from io import BytesIO
 from PIL import Image
-from encoder import (Compression,
-                     screen_descriptor,
-                     image_descriptor,
-                     loop_control_block,
-                     global_color_table)
+from .encoder import (Compression,
+                      screen_descriptor,
+                      image_descriptor,
+                      loop_control_block,
+                      global_color_table)
 
 
 class GIFSurface(object):
