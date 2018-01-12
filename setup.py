@@ -12,6 +12,7 @@ setup(
     version=__version__,
     description='Make GIF animations of maze generation and maze solving algorithms with pure Python.',
     author='Zhao Liang',
+    author_email='mathzhaoliang@gmail.com',
     url='https://github.com/neozhaoliang/gifmaze',
     license='MIT',
     packages=find_packages()

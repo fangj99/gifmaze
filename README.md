@@ -5,17 +5,30 @@
 <p align="center"><img src="./img/logo.gif"></p>
 
 
+## Installation
+
+install via pypi:
+
+```bash
+pip install gifmaze
+```
+or via git
+
+```bash
+git clone https://github.com/neozhaoliang/gifmaze gifmaze && cd gifmaze && python setup.py install
+```
+
 ## Why you need this lib
 
 **Q:** I'm a fun of Python, and also a fun of maze generation and maze solving algorithms. I have always been jealous of other people's awesome animations of this kind (like [here](https://bl.ocks.org/mbostock/11357811), [here](https://bl.ocks.org/mbostock/c03ee31334ee89abad83) and [here](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap)), how could I make my own animations with python and show them to other people? (I know `tkinter`, `pyglet` and `pyqt` are nice GUIs but they cannot be published directly to the web ...)
 
 **A:** Now you have this lib `gifmaze` which can help you make even more awesome GIF animations! It has some very nice features:
 
-1. It's written in pure Python, no third-party libs/softwares are required, only built-in modules! (If you want to embed the animation into an image, then the `PIL` lib is required, which is not built-in but comes with all Python distributions, that's all!)
+1. It's written in pure Python, no third-party libs/softwares are required, only built-in modules! (If you want to embed the animation into an image, then `PIL` is required, which is not built-in but comes with all Python distributions, that's all!)
 
-2. It runs very fast and generates optimized GIF files in only a few seconds.
+2. It runs very fast and generates optimized GIF files in a few seconds. Usually the output file contains more than one thousand frames but the file size is only around a few hundreds of KBs.
 
-3. You can make GIF animations of all kinds of maze generation and maze solving algorithms on the 2-d grid graph. 
+3. You can make GIF animations of all kinds of maze generation and maze solving algorithms on the planar grid graph. 
 
 4. It's fully commented, fully exampled and fully documented!
 
@@ -27,7 +40,7 @@
 
 **A:** Yes! Let me show you with an example:
 
-Firstly you need to declare an `GIFSurface` (similar with `cairo`'s `ImageSurface` class) on which the animations are drawn and which specifies the size of the image and how many colors are available:
+Firstly we need to declare an `GIFSurface` (similar with `cairo`'s `ImageSurface` class) on which the animations are drawn and which specifies the size of the image and how many colors are available:
 
 ``` python
 import gifmaze as gm
