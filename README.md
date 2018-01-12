@@ -96,7 +96,7 @@ The result is shown below (<300KB, very optimized), enjoy it!
 
 <p align="center"><img src="./img/prim.gif"></p>
 
-Of course you can combine several algorithms together into one animation, for example the next image shows the `random depth first search` and `A* search`:
+Of course you can combine several algorithms together into one animation, for example the next image shows the `random depth first search` and `A* search`: (it's only 120KB)
 
 <p align="center"><img src="./img/dfs_astar.gif"></p>
 
