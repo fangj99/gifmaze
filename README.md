@@ -7,7 +7,7 @@
 
 ## Installation
 
-install via pypi:
+You can install either via pypi:
 
 ```bash
 pip install gifmaze
@@ -20,7 +20,7 @@ git clone https://github.com/neozhaoliang/gifmaze gifmaze && cd gifmaze && pytho
 
 ## Why you need this lib
 
-**Q:** I'm a fun of Python, and also a fun of maze generation and maze solving algorithms. I have always been jealous of other people's awesome animations of this kind (like [here](https://bl.ocks.org/mbostock/11357811), [here](https://bl.ocks.org/mbostock/c03ee31334ee89abad83) and [here](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap)), how could I make my own animations with python and show them to other people? (I know `tkinter`, `pyglet` and `pyqt` are nice GUIs but they cannot be published directly to the web ...)
+**Q:** I'm a fun of Python and also a fun of maze generation and maze solving algorithms. I have always been jealous of other people's awesome animations of this kind (like [here](https://bl.ocks.org/mbostock/11357811), [here](https://bl.ocks.org/mbostock/c03ee31334ee89abad83) and [here](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap)), how could I make my own animations with python and show them to other people? (I know `tkinter`, `pyglet` and `pyqt` are nice GUIs but they cannot be published directly to the web ...)
 
 **A:** Now you have this lib `gifmaze` which can help you make even more awesome GIF animations! It has some very nice features:
 
@@ -68,7 +68,7 @@ anim.set_control(speed=20, delay=5, trans_index=3)
 ```
 This means "render a frame every 20 steps, set the delay time between successive frames to 0.05 second, and the color of index 3 in the global color table as the transparent channel".
 
-Now we have a gif surface to draw on, an environemnt to control how the animation is rendered, the last thing is to add a maze to run the algorithm.
+Now we have a gif surface to draw on, an environemnt to control how the animation is rendered, then the last thing is to add a maze to run the algorithm.
 
 ``` python
 maze = anim.create_maze_in_region(cell_size=5, region=8, mask=None)
@@ -84,7 +84,7 @@ anim.pad_delay_frame(200)
 prim(maze, start=(0, 0))
 anim.pad_delay_frame(500)
 ```
-Here I padding two delay frames to control the appearance of the animation. 
+Note I have padded two delay frames to help to see the animation clearly.
 
 That's all! Let's save the animation to a gif file:
 
@@ -92,7 +92,7 @@ That's all! Let's save the animation to a gif file:
 surface.save('prim.gif')
 surface.close()
 ```
-The result is shown below, enjoy it!
+The result is shown below (<300KB, very optimized), enjoy it!
 
 <p align="center"><img src="./img/prim.gif"></p>
 
