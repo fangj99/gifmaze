@@ -10,13 +10,13 @@ def generate_text_mask(size, text, fontfile, fontsize):
 
     ----------
     Parameters
-    
+
     size: size of the image.
-    
+
     text: a string to be embedded in the image.
-    
+
     fontfile: path to your .ttf font file.
-    
+
     fontsize: size of the font.
     """
     img = Image.new('L', size, 'white')

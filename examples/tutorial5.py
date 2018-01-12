@@ -44,4 +44,3 @@ anim.pad_delay_frame(500)
 surface.save('random_dfs.gif')
 
 surface.close()
-

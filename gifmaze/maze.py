@@ -26,7 +26,7 @@ class Maze(object):
         Parameters
         ----------
         width, height: size of the maze, must both be odd integers.
-        
+
         mask: `None` or an file-like image or an instance of PIL's Image class.
               If not `None` then this mask image must be of binary type:
               the black pixels are considered as `walls` and are overlayed
@@ -36,7 +36,7 @@ class Maze(object):
         """
         if (width * height % 2 == 0):
             raise ValueError('The width and height must both be odd integers.')
-        
+
         self.size = (width, height)
         self._grid = [[0] * height for _ in range(width)]
         self._num_changes = 0   # a counter holds how many cells are changed.
@@ -85,7 +85,7 @@ class Maze(object):
         x, y = cell
         self._grid[x][y] = value
         self._num_changes += 1
-        
+
         if self._frame_box is not None:
             left, top, right, bottom = self._frame_box
             self._frame_box = (min(x, left),  min(y, top),
@@ -97,7 +97,7 @@ class Maze(object):
         """Mark the space between two adjacent cells."""
         c = ((c1[0] + c2[0]) // 2, (c1[1] + c2[1]) // 2)
         self.mark_cell(c, value)
-        
+
     def mark_path(self, path, value):
         """Mark the cells in a path and the spaces between them."""
         for cell in path:
@@ -114,11 +114,11 @@ class Maze(object):
         x = (c1[0] + c2[0]) // 2
         y = (c1[1] + c2[1]) // 2
         return self._grid[x][y] == Maze.WALL
-    
+
     def is_wall(self, cell):
         x, y = cell
         return self._grid[x][y] == Maze.WALL
-    
+
     def in_tree(self, cell):
         x, y = cell
         return self._grid[x][y] == Maze.TREE
@@ -130,15 +130,15 @@ class Maze(object):
     def reset(self):
         self._num_changes = 0
         self._frame_box = None
-                    
+
     @property
     def frame_box(self):
         return self._frame_box
-    
+
     @property
     def num_changes(self):
         return self._num_changes
-    
+
     def bind_animation(self, anim):
         """
         Bind this maze to an animation.

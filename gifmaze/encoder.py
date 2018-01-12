@@ -79,14 +79,14 @@ class Compression(object):
     """
     The Lempel-Ziv-Welch compression algorithm used by the GIF89a specification.
     """
-    
+
     def __init__(self, min_code_length):
         """
         min_code_length: an integer between 2 and 12.
 
         GIF allows the minimum code length as small as 2 and as large as 12.
         Even there are only two colors, the minimum code length must be at least 2.
-        
+
         Note this is not actually the smallest code length that is used
         in the encoding process since the minimum code length tells us
         how many bits are needed just for the different colors of the image,
@@ -103,7 +103,7 @@ class Compression(object):
         self._clear_code = 1 << min_code_length
         self._end_code = self._clear_code + 1
         self._max_codes = 4096
-        
+
     def __call__(self, input_data):
         """
         input_data: a 1-d list consists of integers in range [0, 255],
@@ -142,7 +142,7 @@ class Compression(object):
         self._stream.encode_bits(code_table[pattern], code_length)
         self._stream.encode_bits(self._end_code, code_length)
         return bytearray([self._min_code_length]) + self._stream.dump_bytes() + bytearray([0])
- 
+
 
 def screen_descriptor(width, height, color_depth):
     """
@@ -158,7 +158,7 @@ def loop_control_block(loop):
     """
     return pack('<3B8s3s2BHB', 0x21, 0xFF, 11, b'NETSCAPE', b'2.0', 3, 1, loop, 0)
 
-        
+
 def graphics_control_block(delay, trans_index=None):
     """
     This block specifies the delay and transparent color of the coming frame.
@@ -169,8 +169,8 @@ def graphics_control_block(delay, trans_index=None):
         return pack("<4BH2B", 0x21, 0xF9, 4, 0b00000100, delay, 0, 0)
     else:
         return pack("<4BH2B", 0x21, 0xF9, 4, 0b00000101, delay, trans_index, 0)
-    
-    
+
+
 def image_descriptor(left, top, width, height, byte=0):
     """
     This block specifies the position of the coming frame (relative to the window)
@@ -182,23 +182,23 @@ def global_color_table(color_depth, palette):
     """
     Return a valid global color table.
     The global color table of a GIF image is a 1-d bytearray of the form
-    [r1, g1, b1, r2, g2, b2, ...] with length equals to 2**n where n is 
+    [r1, g1, b1, r2, g2, b2, ...] with length equals to 2**n where n is
     the color depth of the image.
-    
+
     ----------
     Parameters
-    
+
     color_depth: color depth of the GIF.
 
     palette: a list of rgb colors of the format [r1, g1, b1, r2, g2, b2, ...].
-        The number of colors must be greater than or equal to 2**n where n is 
+        The number of colors must be greater than or equal to 2**n where n is
         the color depth. Redundant colors will be discarded.
     """
     try:
         palette = bytearray(palette)
     except:
         raise ValueError('Cannot convert palette to bytearray.')
-        
+
     valid_length = 3 * (1 << color_depth)
     if len(palette) < valid_length:
         raise ValueError('Invalid palette length.')

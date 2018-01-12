@@ -3,14 +3,14 @@
 from .maze import Maze
 from .surface import GIFSurface
 from .encoder import (graphics_control_block, image_descriptor)
-                     
+
 
 class Animation(object):
     """
     This class builds the environment for encoding an animation into a GIF file.
     It controls how a maze is colored and rendered to the GIF Surface.
     """
-    
+
     def __init__(self, surface):
         """
         `surface` is an instance of the Surface class.
@@ -32,13 +32,13 @@ class Animation(object):
     def set_colormap(self, cmap):
         """
         Control how the cells are mapped to the colors.
-        
+
         cmap: a dict that maps the value of a cell to a color index.
         Example:
-        
+
         >>> cmap = {0: 1, 1: 2, 2: 3}
         >>> self.set_colormap(cmap)
-        
+
         Here a pair {k: i} means the cells with value=k are
         mapped to the color of index i (in the global color table).
         """
@@ -53,7 +53,7 @@ class Animation(object):
         for key, val in kwargs.items():
             if key in params:
                 setattr(self, key, val)
-    
+
     def pad_delay_frame(self, delay):
         """
         Pad a 1x1 transparent frame for delay (it's invisible).
@@ -61,7 +61,7 @@ class Animation(object):
         control = graphics_control_block(delay, self.trans_index)
         descriptor = image_descriptor(0, 0, 1, 1)
         self._surface.write(control + descriptor + self._surface.compress([self.trans_index]))
-                     
+
     def refresh_frame(self):
         """Update a frame in the animation and write it into the file."""
         if self.maze.num_changes >= self.speed:
@@ -70,13 +70,13 @@ class Animation(object):
     def clear_remaining_changes(self):
         """Clear possibly remaining changes when the animation is finished."""
         if self.maze.num_changes > 0:
-            self._surface.write(self._encode_frame())      
-        
+            self._surface.write(self._encode_frame())
+
     def _encode_frame(self):
         """Encode current maze into one frame and return the encoded data."""
         # 1. the graphics control block
         control = graphics_control_block(self.delay, self.trans_index)
-        # 2. the image descriptor of this frame      
+        # 2. the image descriptor of this frame
         if self.maze.frame_box is not None:
             left, top, right, bottom = self.maze.frame_box
         else:
@@ -88,45 +88,45 @@ class Animation(object):
                                       self.cell_size * top  + self.translation[1],
                                       self.cell_size * width,
                                       self.cell_size * height)
-        
+
         # A generator that yields the pixels of this frame. This may look a bit unintuitive
         # because encoding frames will be called thousands of times in an animation and
-        # we should avoid creating and destroying a new list each time it's called. 
+        # we should avoid creating and destroying a new list each time it's called.
         def get_frame_pixels():
             for i in range(width * height * self.cell_size * self.cell_size):
                 y = i // (width * self.cell_size * self.cell_size)
                 x = (i % (width * self.cell_size)) // self.cell_size
                 val = self.maze.get_cell((x + left, y + top))
                 yield self.colormap[val]
-         
+
         # 3. the compressed image data of this frame
         data = self._surface.compress(get_frame_pixels())
 
         # clear `num_changes` and `frame_box`
         self.maze.reset()
-        
+
         return control + descriptor + data
-    
+
     def add_maze(self, maze, cell_size, translation):
         self.maze = maze
         self.cell_size = cell_size
         self.translation = translation
         self.maze.bind_animation(self)
         return self.maze
-      
+
     def create_maze_in_region(self, cell_size, region, mask):
         """
         Create a maze in a given region. The returned maze may be
         adjusted to make it located at the center of the region.
-        
+
         ----------
         Parameters
-        
+
         cell_size: size of a cell of the maze in pixels.
-        
+
         region: an int or a 4-tuple (x1, y1, x2, y2) that specify
             the top-left and bottom-right corners of the region.
-        
+
         mask: the mask image.
         """
         if isinstance(region, int):
@@ -141,7 +141,7 @@ class Animation(object):
         if w % 2 == 0:
             w -= 1
             left += (cell_size + r) // 2
-             
+
         h, r = divmod(bottom - top + 1, cell_size)
         if h % 2 == 0:
             h -= 1

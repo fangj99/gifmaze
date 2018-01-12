@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This script shows how to embed the animation into a 
+This script shows how to embed the animation into a
 background image (it's also possible to embed the animation
 into another animation, but that's too complicated to implement
 in a simple program ...)
