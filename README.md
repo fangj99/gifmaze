@@ -92,7 +92,7 @@ That's all! Let's save the animation to a gif file:
 surface.save('prim.gif')
 surface.close()
 ```
-The result is shown below (<300KB, very optimized), enjoy it!
+The result is shown below (<300KB, highly optimized), enjoy it!
 
 <p align="center"><img src="./img/prim.gif"></p>
 

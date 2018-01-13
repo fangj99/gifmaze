@@ -30,7 +30,7 @@ surface.set_palette(palette)
 anim = gm.Animation(surface)
 
 # set the speed, delay, and transparent color we want.
-anim.set_control(speed=50, delay=1, trans_index=3)
+anim.set_control(speed=50, delay=2, trans_index=3)
 
 # add a maze instance.
 mask = generate_text_mask(surface.size, 'UST', 'ubuntu.ttf', 350)
@@ -45,7 +45,7 @@ anim.pad_delay_frame(100)
 surface.rectangle(left, top, right - left + 1, bottom - top + 1, 0)
 
 # in the first algorithm only 4 colors occur in the image, so we can use
-# a smaller minimum code length, this will reduce the file size significantly.
+# a smaller minimum code length, this can help reduce the file size significantly.
 surface.set_lzw_compress(2)
 
 # pad one second delay, get ready!
